@@ -61,8 +61,22 @@ function createBoard() {
     } else if (checkForDiagonalPattern(player.token) === true) {
       console.log(`${player.name} wins the game.`)
       return true;
+    } else if (checkForVerticalPattern(player.token) === true) {
+      console.log(`${player.name} wins the game.`)
+      return true;
     }
     return false;
+  }
+
+  function checkForVerticalPattern(token) {
+    if (board[0][0] === token && board[1][0] === token && board[2][0] === token) {
+      return true;
+    } else if (board[0][1] === token && board[1][1] === token && board[2][1] === token) {
+      return true;
+    } else if (board[0][2] === token && board[1][2] === token && board[2][2] === token) {
+      return true;
+    }
+    return false;0
   }
 
   function checkForDiagonalPattern(token) {
