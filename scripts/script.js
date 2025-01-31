@@ -19,13 +19,16 @@ function playGame() {
     column = prompt(`${currentPlayer}, please enter the column in which you want to place your token. (column 0, 1, or 2)`);
     return [row, column];
   }
-  board.print();
 
-  guess = getGuess();
-  console.log(guess);
-  placeToken(1, 1);
-  updateCurrentPlayer();
+  function makeMove() {
+    guess = getGuess();
+    placeToken(guess[0], guess[1]);
+    updateCurrentPlayer();
+    board.print();
+  }  
+
   board.print();
+  makeMove();
 }
 
 
