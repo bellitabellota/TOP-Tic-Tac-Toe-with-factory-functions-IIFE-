@@ -58,6 +58,18 @@ function createBoard() {
     if (checkForHorizontalPattern(player.token) === true) {
       console.log(`${player.name} wins the game.`)
       return true;
+    } else if (checkForDiagonalPattern(player.token) === true) {
+      console.log(`${player.name} wins the game.`)
+      return true;
+    }
+    return false;
+  }
+
+  function checkForDiagonalPattern(token) {
+    if (board[0][0] === token && board[1][1] === token && board[2][2] === token) {
+      return true;
+    } else if (board[0][2] === token && board[1][1] === token && board[2][0] === token) {
+      return true;
     }
     return false;
   }
@@ -70,10 +82,8 @@ function createBoard() {
     } else if(board[2].toString() === `${token},${token},${token}`) {
       return true;
     }
-
     return false;
   }
-
   return { print, updateField, checkForWin };
 }
 
