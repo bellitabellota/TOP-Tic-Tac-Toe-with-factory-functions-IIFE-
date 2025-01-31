@@ -24,7 +24,7 @@ function playGame() {
   function makeMove() {
     guess = getGuess();
     placeToken(guess[0], guess[1]);
-    gameFinished = board.checkForWin(currentPlayer);
+    gameFinished = board.hasWinningPattern(currentPlayer);
     updateCurrentPlayer();
     board.print();
   }
@@ -54,21 +54,21 @@ function createBoard() {
     board[row][column] = token;
   };
 
-  const checkForWin = (player) => {
-    if (checkForHorizontalPattern(player.token) === true) {
+  const hasWinningPattern = (player) => {
+    if (hasHorizontalPattern(player.token) === true) {
       console.log(`${player.name} wins the game.`)
       return true;
-    } else if (checkForDiagonalPattern(player.token) === true) {
+    } else if (hasDiagonalPattern(player.token) === true) {
       console.log(`${player.name} wins the game.`)
       return true;
-    } else if (checkForVerticalPattern(player.token) === true) {
+    } else if (hasVerticalPattern(player.token) === true) {
       console.log(`${player.name} wins the game.`)
       return true;
     }
     return false;
   }
 
-  function checkForVerticalPattern(token) {
+  function hasVerticalPattern(token) {
     if (board[0][0] === token && board[1][0] === token && board[2][0] === token) {
       return true;
     } else if (board[0][1] === token && board[1][1] === token && board[2][1] === token) {
@@ -79,7 +79,7 @@ function createBoard() {
     return false;0
   }
 
-  function checkForDiagonalPattern(token) {
+  function hasDiagonalPattern(token) {
     if (board[0][0] === token && board[1][1] === token && board[2][2] === token) {
       return true;
     } else if (board[0][2] === token && board[1][1] === token && board[2][0] === token) {
@@ -88,7 +88,7 @@ function createBoard() {
     return false;
   }
 
-  function checkForHorizontalPattern(token) {
+  function hasHorizontalPattern(token) {
     if(board[0].toString() === `${token},${token},${token}`) {
       return true;
     } else if(board[1].toString() === `${token},${token},${token}`) {
@@ -98,7 +98,7 @@ function createBoard() {
     }
     return false;
   }
-  return { print, updateField, checkForWin };
+  return { print, updateField, hasWinningPattern };
 }
 
 
