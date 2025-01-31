@@ -5,6 +5,7 @@ function playGame() {
   const player1 = createPlayer("player1", "X");
   const player2 = createPlayer("player2", "0");
   let currentPlayer = player1
+  let gameFinished = false;
 
   function placeToken(row, column) {
     board.updateField(row, column, currentPlayer.token);
@@ -25,10 +26,13 @@ function playGame() {
     placeToken(guess[0], guess[1]);
     updateCurrentPlayer();
     board.print();
-  }  
-
+  }
+  
   board.print();
-  makeMove();
+  while(gameFinished === false) {
+    makeMove();
+  }
+  
 }
 
 
