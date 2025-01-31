@@ -55,13 +55,7 @@ function createBoard() {
   };
 
   const hasWinningPattern = (player) => {
-    if (hasHorizontalPattern(player.token) === true) {
-      console.log(`${player.name} wins the game.`)
-      return true;
-    } else if (hasDiagonalPattern(player.token) === true) {
-      console.log(`${player.name} wins the game.`)
-      return true;
-    } else if (hasVerticalPattern(player.token) === true) {
+    if (hasHorizontalPattern(player.token)  || hasDiagonalPattern(player.token) || hasVerticalPattern(player.token)) {
       console.log(`${player.name} wins the game.`)
       return true;
     }
@@ -76,7 +70,7 @@ function createBoard() {
     } else if (board[0][2] === token && board[1][2] === token && board[2][2] === token) {
       return true;
     }
-    return false;0
+    return false;
   }
 
   function hasDiagonalPattern(token) {
