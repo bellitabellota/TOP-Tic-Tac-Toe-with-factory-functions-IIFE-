@@ -12,7 +12,7 @@ function playGame() {
   }
 
   function updateCurrentPlayer () {
-    currentPlayer === player1 ? currentPlayer = player2 : player1;
+    currentPlayer === player1 ? currentPlayer = player2 : currentPlayer = player1;
   }
 
   function getGuess() {
@@ -24,6 +24,7 @@ function playGame() {
   function makeMove() {
     guess = getGuess();
     placeToken(guess[0], guess[1]);
+    gameFinished = board.checkForWin(currentPlayer);
     updateCurrentPlayer();
     board.print();
   }
@@ -37,7 +38,7 @@ function playGame() {
 
 
 
-function createPlayer(name, token) {
+function createPlayer(name, token) {0
   this.name = name;
   this.token = token;
   return { name, token };
@@ -48,12 +49,32 @@ function createBoard() {
                [null, null, null],
                [null, null, null]];
   
-  const print = () => { console.log(board)};
+  const print = () => { console.log(board[0], board[1], board[2])};
   const updateField = (row, column, token) => {
     board[row][column] = token;
   };
 
-  return { print, updateField };
+  const checkForWin = (player) => {
+    if (checkForHorizontalPattern(player.token) === true) {
+      console.log(`${player.name} wins the game.`)
+      return true;
+    }
+    return false;
+  }
+
+  function checkForHorizontalPattern(token) {
+    if(board[0].toString() === `${token},${token},${token}`) {
+      return true;
+    } else if(board[1].toString() === `${token},${token},${token}`) {
+      return true;
+    } else if(board[2].toString() === `${token},${token},${token}`) {
+      return true;
+    }
+
+    return false;
+  }
+
+  return { print, updateField, checkForWin };
 }
 
 
