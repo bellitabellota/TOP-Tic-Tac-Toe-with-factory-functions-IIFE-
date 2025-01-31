@@ -10,8 +10,12 @@ function playGame() {
     board.updateField(row, column, currentPlayer.token);
   }
 
+  function updateCurrentPlayer () {
+    currentPlayer === player1 ? currentPlayer = player2 : player1;
+  }
   board.print();
   placeToken(1, 1);
+  updateCurrentPlayer();
   board.print();
 }
 
