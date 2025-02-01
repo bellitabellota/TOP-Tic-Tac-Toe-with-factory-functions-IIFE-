@@ -18,13 +18,18 @@ function playGame() {
   function getGuess() {
     row = prompt(`${currentPlayer}, please enter the row in which you want to place your token. (row 0, 1, or 2)`);
     column = prompt(`${currentPlayer}, please enter the column in which you want to place your token. (column 0, 1, or 2)`);
-    return [row, column];
+
+    if(board.isFieldEmpty(row, column)) {
+      return [row, column];
+    }
+
+    console.log("Field already taken. Please choose another field.")
+    return getGuess();
   }
 
   function makeMove() {
     guess = getGuess();
     placeToken(guess[0], guess[1]);
-    console.log(value);
     gameFinished = board.hasWinningPattern(currentPlayer) || !board.hasEmptyField();
 
     updateCurrentPlayer();
@@ -55,6 +60,10 @@ function createBoard() {
   const updateField = (row, column, token) => {
     board[row][column] = token;
   };
+
+  const isFieldEmpty = (row, column) => {
+    return board[row][column] === null;
+  }
 
   const hasEmptyField = () => { 
     if(board.flat().includes(null)) {
@@ -103,7 +112,7 @@ function createBoard() {
     }
     return false;
   }
-  return { print, updateField, hasWinningPattern, hasEmptyField };
+  return { print, updateField, hasWinningPattern, hasEmptyField, isFieldEmpty };
 }
 
 
