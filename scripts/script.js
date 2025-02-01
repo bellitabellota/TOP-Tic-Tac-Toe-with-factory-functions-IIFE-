@@ -36,7 +36,7 @@ function GameController() {
     currentPlayer === player1 ? currentPlayer = player2 : currentPlayer = player1;
   }
 
-  function getGuess() {
+  function getChoice() {
     const row = prompt(`${currentPlayer}, please enter the row in which you want to place your token. (row 0, 1, or 2)`);
     const column = prompt(`${currentPlayer}, please enter the column in which you want to place your token. (column 0, 1, or 2)`);
 
@@ -45,11 +45,11 @@ function GameController() {
     }
 
     console.log("Field already taken. Please choose another field.")
-    return getGuess();
+    return getChoice();
   }
 
   function makeMove() {
-    guess = getGuess();
+    guess = getChoice();
     placeToken(guess[0], guess[1]);
     gameFinished = board.hasWinningPattern(currentPlayer) || !board.hasEmptyField();
 
