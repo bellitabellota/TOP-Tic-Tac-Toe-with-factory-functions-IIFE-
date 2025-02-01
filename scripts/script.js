@@ -1,7 +1,28 @@
-const game = playGame();
+ScreenController();
 
-function playGame() {
-  const board = createBoard();
+function ScreenController() {
+  const game = GameController();
+  const board = game.board;
+  let domBoard = document.querySelector(".js-board");
+
+  function printDomBoard() {
+    console.log(board);
+
+    board.forEach((row, row_index) => {
+      row.forEach((field, column_index) => {
+
+        field = [row_index, column_index]
+        console.log([row_index, column_index]);
+        domBoard.innerHTML += `<div class="cell js-cells" data-field=${field}> </div>`
+      })
+    })
+  }
+
+  printDomBoard();
+}
+
+function GameController() {
+  const board = BoardController().board;
   const player1 = createPlayer("player1", "X");
   const player2 = createPlayer("player2", "0");
   let currentPlayer = player1
@@ -35,12 +56,15 @@ function playGame() {
     updateCurrentPlayer();
     board.print();
   }
-  
-  board.print();
-  while(gameFinished === false) {
-    makeMove();
+
+  function play() {
+    board.print();
+    while(gameFinished === false) {
+      makeMove();
+    }
   }
-  
+
+  return { board };
 }
 
 
@@ -51,7 +75,7 @@ function createPlayer(name, token) {0
   return { name, token };
 }
 
-function createBoard() {
+function BoardController() {
   let board = [[null, null, null],
                [null, null, null],
                [null, null, null]];
@@ -112,7 +136,7 @@ function createBoard() {
     }
     return false;
   }
-  return { print, updateField, hasWinningPattern, hasEmptyField, isFieldEmpty };
+  return { print, updateField, hasWinningPattern, hasEmptyField, isFieldEmpty, board };
 }
 
 
