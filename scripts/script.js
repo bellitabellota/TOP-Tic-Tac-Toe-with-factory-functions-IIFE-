@@ -24,7 +24,9 @@ function playGame() {
   function makeMove() {
     guess = getGuess();
     placeToken(guess[0], guess[1]);
-    gameFinished = board.hasWinningPattern(currentPlayer);
+    console.log(value);
+    gameFinished = board.hasWinningPattern(currentPlayer) || !board.hasEmptyField();
+
     updateCurrentPlayer();
     board.print();
   }
@@ -53,6 +55,15 @@ function createBoard() {
   const updateField = (row, column, token) => {
     board[row][column] = token;
   };
+
+  const hasEmptyField = () => { 
+    if(board.flat().includes(null)) {
+      return true;
+    } else {
+      console.log("No more empty fields. The game has finished with a tie.")
+      return false;
+    }
+  }
 
   const hasWinningPattern = (player) => {
     if (hasHorizontalPattern(player.token)  || hasDiagonalPattern(player.token) || hasVerticalPattern(player.token)) {
@@ -92,7 +103,7 @@ function createBoard() {
     }
     return false;
   }
-  return { print, updateField, hasWinningPattern };
+  return { print, updateField, hasWinningPattern, hasEmptyField };
 }
 
 
