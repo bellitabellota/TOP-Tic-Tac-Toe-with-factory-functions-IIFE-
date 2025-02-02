@@ -22,7 +22,7 @@ function ScreenController() {
 }
 
 function createGame() {
-  const board = createBoard().board;
+  const board = createBoard();
   const player1 = createPlayer("player1", "X");
   const player2 = createPlayer("player2", "0");
   let currentPlayer = player1
@@ -63,8 +63,6 @@ function createGame() {
       makeMove();
     }
   }
-
-  return { board };
 }
 
 
