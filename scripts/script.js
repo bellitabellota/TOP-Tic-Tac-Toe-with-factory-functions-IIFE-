@@ -13,7 +13,7 @@ function ScreenController() {
     //game.play();
   })
 
-  function printDomBoard(fields, domBoard) {
+  function printDomBoard(fields) {
     //console.log(fields);
 
     fields.forEach((row, row_index) => {
@@ -51,7 +51,7 @@ function createGame() {
   function start (domBoard, printDomBoard, addDomBoardEventListeners) {
     board = createBoard();
     fields = board.getFields();
-    printDomBoard(fields, domBoard);
+    printDomBoard(fields);
     addDomBoardEventListeners();
 
     let playerInformation = getPlayerInformation();
