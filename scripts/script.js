@@ -8,13 +8,13 @@ function ScreenController() {
 
   startButton.addEventListener("click", () => { 
     game = createGame();
-    game.start(domBoard, printDomBoard);
+    game.start(domBoard, printDomBoard, addDomBoardEventListeners);
     //printDomBoard();
     //game.play();
   })
 
   function printDomBoard(fields, domBoard) {
-    console.log(fields);
+    //console.log(fields);
 
     fields.forEach((row, row_index) => {
       row.forEach((field, column_index) => {
@@ -25,6 +25,16 @@ function ScreenController() {
       })
     })
   }
+
+  function addDomBoardEventListeners() {
+    const cells = document.querySelectorAll(".js-cells");
+    cells.forEach((cell) => {
+      cell.addEventListener("click", () => {
+        let fieldIndexes = cell.dataset.field.split(",").map(Number);
+        //console.log(fieldIndexes);
+      });
+    })
+  } 
 
 
 
@@ -38,10 +48,11 @@ function createGame() {
   let currentPlayer;
   let gameFinished = false;
 
-  function start (domBoard, printDomBoard) {
+  function start (domBoard, printDomBoard, addDomBoardEventListeners) {
     board = createBoard();
     fields = board.getFields();
     printDomBoard(fields, domBoard);
+    addDomBoardEventListeners();
 
     let playerInformation = getPlayerInformation();
     player1 = createPlayer(playerInformation[0], playerInformation[1]);
