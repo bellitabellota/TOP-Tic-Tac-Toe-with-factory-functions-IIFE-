@@ -53,15 +53,15 @@ function createGame() {
     fields = board.getFields();
     printDomBoard(fields);
 
-    let playerInformation = getPlayerInformation();
+    let playerInformation = getPlayerInformation(1);
     player1 = createPlayer(playerInformation[0], playerInformation[1]);
-    playerInformation = getPlayerInformation();
+    playerInformation = getPlayerInformation(2);
     player2 = createPlayer(playerInformation[0], playerInformation[1]);
     currentPlayer = player1;
   }
 
-  function getPlayerInformation() {
-    let playerName = prompt("Please enter the name of Player1:");
+  function getPlayerInformation(player_number) {
+    let playerName = prompt(`Please enter the name of Player ${player_number}:`);
     let playerToken = prompt(`${playerName}, please chose your token (usually X or O):`);
     return [ playerName, playerToken ];
   }
