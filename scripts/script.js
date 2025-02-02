@@ -33,6 +33,7 @@ function ScreenController() {
       cell.addEventListener("click", () => {
         let fieldIndexes = cell.dataset.field.split(",").map(Number);
         console.log(fieldIndexes);
+        game.makeMove(fieldIndexes, info);
       });
     })
   }
@@ -73,25 +74,24 @@ function createGame() {
     currentPlayer === player1 ? currentPlayer = player2 : currentPlayer = player1;
   }
 
-  function getChoice() {
-    const row = prompt(`${currentPlayer}, please enter the row in which you want to place your token. (row 0, 1, or 2)`);
-    const column = prompt(`${currentPlayer}, please enter the column in which you want to place your token. (column 0, 1, or 2)`);
-
-    if(board.isFieldEmpty(row, column)) {
-      return [row, column];
+  function isValid(choice) {
+    if(board.isFieldEmpty(choice[0], choice[1])) {
+      return true;
+    } else {
+      return false;
     }
-
-    console.log("Field already taken. Please choose another field.")
-    return getChoice();
   }
 
-  function makeMove() {
-    const choice = getChoice();
-    placeToken(choice[0], choice[1]);
-    gameFinished = board.hasWinningPattern(currentPlayer) || !board.hasEmptyField();
+  function makeMove(choice, info) {
+    if (isValid(choice)) {
+      placeToken(choice[0], choice[1]);
+      gameFinished = board.hasWinningPattern(currentPlayer) || !board.hasEmptyField();
 
-    updateCurrentPlayer();
-    board.print();
+      updateCurrentPlayer();
+      board.print();
+    } else {
+      info.innerHTML = `This field is already taken. Please chose another field.`
+    }
   }
 
   function play() {
@@ -101,7 +101,7 @@ function createGame() {
     // }
   }
 
-  return { start }
+  return { start, makeMove }
 }
 
 
