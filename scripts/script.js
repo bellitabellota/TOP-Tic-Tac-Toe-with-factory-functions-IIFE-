@@ -7,7 +7,7 @@ function ScreenController() {
 
   startButton.addEventListener("click", () => { 
     game = createGame();
-    game.start(domBoard, printDomBoard, addDomBoardEventListeners);
+    game.start(printDomBoard, addDomBoardEventListeners);
     //printDomBoard();
     //game.play();
   })
@@ -43,7 +43,7 @@ function createGame() {
   let currentPlayer;
   let gameFinished = false;
 
-  function start (domBoard, printDomBoard, addDomBoardEventListeners) {
+  function start (printDomBoard, addDomBoardEventListeners) {
     board = createBoard();
     fields = board.getFields();
     printDomBoard(fields);
