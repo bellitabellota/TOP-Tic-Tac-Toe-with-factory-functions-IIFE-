@@ -103,8 +103,6 @@ function createGame() {
 }
 
 function createPlayer(name, token) {
-  this.name = name;
-  this.token = token;
   return { name, token };
 }
 
