@@ -8,7 +8,7 @@ function ScreenController() {
 
 
   startButton.addEventListener("click", () => { 
-    //update button description
+    startButton.innerHTML = "New Game";
     game = createGame();
     game.start(printDomBoard);
     addDomBoardEventListeners();
