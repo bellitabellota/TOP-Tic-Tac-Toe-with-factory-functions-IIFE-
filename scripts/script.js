@@ -2,36 +2,59 @@ ScreenController();
 
 function ScreenController() {
   const startButton = document.querySelector(".js-start-button");
-  const game = createGame();
+  let game;
   //const board = game.board;
   let domBoard = document.querySelector(".js-board");
 
-  startButton.addEventListener("click", () => { game.play();})
+  startButton.addEventListener("click", () => { 
+    game = createGame();
+    game.start(domBoard, printDomBoard);
+    //printDomBoard();
+    //game.play();
+  })
 
-  function printDomBoard() {
-    console.log(board);
+  function printDomBoard(fields, domBoard) {
+    console.log(fields);
 
-    board.forEach((row, row_index) => {
+    fields.forEach((row, row_index) => {
       row.forEach((field, column_index) => {
 
-        field = [row_index, column_index]
+        fieldIndexes = [row_index, column_index]
         console.log([row_index, column_index]);
-        domBoard.innerHTML += `<div class="cell js-cells" data-field=${field}> </div>`
+        domBoard.innerHTML += `<div class="cell js-cells" data-field=${fieldIndexes}> </div>`
       })
     })
   }
 
- // printDomBoard();
+
 
  
 }
 
 function createGame() {
-  const board = createBoard();
-  const player1 = createPlayer("player1", "X");
-  const player2 = createPlayer("player2", "0");
-  let currentPlayer = player1
+  let board;
+  let player1;
+  let player2;
+  let currentPlayer;
   let gameFinished = false;
+
+  function start (domBoard, printDomBoard) {
+    board = createBoard();
+    fields = board.getFields();
+    printDomBoard(fields, domBoard);
+
+    let playerInformation = getPlayerInformation();
+    player1 = createPlayer(playerInformation[0], playerInformation[1]);
+    playerInformation = getPlayerInformation();
+    player2 = createPlayer(playerInformation[0], playerInformation[1]);
+    currentPlayer = player1;
+  }
+
+  function getPlayerInformation() {
+    let playerName = prompt("Please enter the name of Player1:")
+    let playerToken = prompt(`${playerName}, please chose your token (usually X or O):`)
+    return [ playerName, playerToken ];
+  }
 
   function placeToken(row, column) {
     board.updateField(row, column, currentPlayer.token);
@@ -69,7 +92,7 @@ function createGame() {
     // }
   }
 
-  return { play }
+  return { play, start }
 }
 
 
@@ -86,9 +109,14 @@ function createBoard() {
                [null, null, null]];
   
   const print = () => { console.log(fields[0], fields[1], fields[2])};
+
   const updateField = (row, column, token) => {
     fields[row][column] = token;
   };
+
+  const getFields = () => {
+    return fields;
+  }
 
   const isFieldEmpty = (row, column) => {
     return fields[row][column] === null;
@@ -141,7 +169,7 @@ function createBoard() {
     }
     return false;
   }
-  return { print, updateField, hasWinningPattern, hasEmptyField, isFieldEmpty };
+  return { print, updateField, getFields, hasWinningPattern, hasEmptyField, isFieldEmpty };
 }
 
 
