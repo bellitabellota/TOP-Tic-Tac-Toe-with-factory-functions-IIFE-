@@ -20,7 +20,7 @@ const screenController = (function() {
         let token;
         field === null ? token = " " : token = field;
 
-        fieldIndexes = [row_index, column_index];
+        const fieldIndexes = [row_index, column_index];
 
         domBoard.innerHTML += `<div class="cell js-cells" data-field=${fieldIndexes}>${token}</div>`;
       })
