@@ -3,7 +3,7 @@ ScreenController();
 function ScreenController() {
   const startButton = document.querySelector(".js-start-button");
   let game;
-  const domBoard = document.querySelector(".js-board");
+  let domBoard = document.querySelector(".js-board");
   const info = document.querySelector(".js-info");
 
 
@@ -16,7 +16,7 @@ function ScreenController() {
 
   function printDomBoard(fields) {
     //console.log(fields);
-
+    domBoard.innerHTML = null;
     fields.forEach((row, row_index) => {
       row.forEach((field, column_index) => {
 
@@ -33,7 +33,8 @@ function ScreenController() {
       cell.addEventListener("click", () => {
         let fieldIndexes = cell.dataset.field.split(",").map(Number);
         console.log(fieldIndexes);
-        game.makeMove(fieldIndexes, info);
+        game.makeMove(fieldIndexes, info, printDomBoard);
+        addDomBoardEventListeners();
       });
     })
   }
@@ -82,13 +83,23 @@ function createGame() {
     }
   }
 
-  function makeMove(choice, info) {
+  function makeMove(choice, info, printDomBoard) {
     if (isValid(choice)) {
       placeToken(choice[0], choice[1]);
-      gameFinished = board.hasWinningPattern(currentPlayer) || !board.hasEmptyField();
 
-      updateCurrentPlayer();
-      board.print();
+      if(board.hasWinningPattern(currentPlayer)) {
+        info.innerHTML =`${currentPlayer.name} wins the game.`
+        //remove EventListeners when game is  finished, check if gameFinished variable is required.
+      } else if (!board.hasEmptyField()) {
+        info.innerHTML ="No more empty fields. The game has finished with a tie."
+        //remove EventListeners when game is  finished, check if gameFinished variable is required.
+      } else {
+        updateCurrentPlayer();
+        info.innerHTML =`${currentPlayer.name}, please make your choice.`
+        board.print();
+        fields = board.getFields();
+        printDomBoard(fields);
+      }
     } else {
       info.innerHTML = `This field is already taken. Please chose another field.`
     }
@@ -135,14 +146,12 @@ function createBoard() {
     if(fields.flat().includes(null)) {
       return true;
     } else {
-      console.log("No more empty fields. The game has finished with a tie.")
       return false;
     }
   }
 
   const hasWinningPattern = (player) => {
     if (hasHorizontalPattern(player.token)  || hasDiagonalPattern(player.token) || hasVerticalPattern(player.token)) {
-      console.log(`${player.name} wins the game.`)
       return true;
     }
     return false;
