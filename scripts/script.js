@@ -154,11 +154,9 @@ function createBoard() {
   }
 
   function hasHorizontalPattern(token) {
-    if(fields[0].toString() === `${token},${token},${token}`) {
-      return true;
-    } else if(fields[1].toString() === `${token},${token},${token}`) {
-      return true;
-    } else if(fields[2].toString() === `${token},${token},${token}`) {
+    if( fields[0].every(field => field === token) ||
+        fields[1].every(field => field === token) ||
+        fields[2].every(field => field === token)) {
       return true;
     }
     return false;
