@@ -1,7 +1,7 @@
 const screenController = (function() {
   const startButton = document.querySelector(".js-start-button");
   let game;
-  let domBoard = document.querySelector(".js-board");
+  const domBoard = document.querySelector(".js-board");
   const info = document.querySelector(".js-info");
 
 
