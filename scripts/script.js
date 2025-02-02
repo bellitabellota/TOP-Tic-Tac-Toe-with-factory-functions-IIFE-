@@ -107,7 +107,7 @@ function createPlayer(name, token) {
 }
 
 function createBoard() {
-  let fields = [[null, null, null],
+  const fields = [[null, null, null],
                [null, null, null],
                [null, null, null]];
   
