@@ -31,7 +31,7 @@ const screenController = (function() {
     const cells = document.querySelectorAll(".js-cells");
     cells.forEach((cell) => {
       cell.addEventListener("click", () => {
-        let fieldIndexes = cell.dataset.field.split(",").map(Number);
+        const fieldIndexes = cell.dataset.field.split(",").map(Number);
 
         game.finished = game.makeMove(fieldIndexes, info, printDomBoard);
 
