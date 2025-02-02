@@ -3,7 +3,6 @@ ScreenController();
 function ScreenController() {
   const startButton = document.querySelector(".js-start-button");
   let game;
-  //const board = game.board;
   let domBoard = document.querySelector(".js-board");
 
   startButton.addEventListener("click", () => { 
@@ -34,11 +33,7 @@ function ScreenController() {
         //console.log(fieldIndexes);
       });
     })
-  } 
-
-
-
- 
+  }
 }
 
 function createGame() {
@@ -88,8 +83,8 @@ function createGame() {
   }
 
   function makeMove() {
-    guess = getChoice();
-    placeToken(guess[0], guess[1]);
+    const choice = getChoice();
+    placeToken(choice[0], choice[1]);
     gameFinished = board.hasWinningPattern(currentPlayer) || !board.hasEmptyField();
 
     updateCurrentPlayer();
@@ -108,7 +103,7 @@ function createGame() {
 
 
 
-function createPlayer(name, token) {0
+function createPlayer(name, token) {
   this.name = name;
   this.token = token;
   return { name, token };
