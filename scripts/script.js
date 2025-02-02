@@ -2,7 +2,7 @@ ScreenController();
 
 function ScreenController() {
   const game = createGame();
-  const board = game.board;
+  //const board = game.board;
   let domBoard = document.querySelector(".js-board");
 
   function printDomBoard() {
@@ -18,7 +18,9 @@ function ScreenController() {
     })
   }
 
-  printDomBoard();
+ // printDomBoard();
+
+ 
 }
 
 function createGame() {
@@ -74,21 +76,21 @@ function createPlayer(name, token) {0
 }
 
 function createBoard() {
-  let board = [[null, null, null],
+  let fields = [[null, null, null],
                [null, null, null],
                [null, null, null]];
   
-  const print = () => { console.log(board[0], board[1], board[2])};
+  const print = () => { console.log(fields[0], fields[1], fields[2])};
   const updateField = (row, column, token) => {
-    board[row][column] = token;
+    fields[row][column] = token;
   };
 
   const isFieldEmpty = (row, column) => {
-    return board[row][column] === null;
+    return fields[row][column] === null;
   }
 
   const hasEmptyField = () => { 
-    if(board.flat().includes(null)) {
+    if(fields.flat().includes(null)) {
       return true;
     } else {
       console.log("No more empty fields. The game has finished with a tie.")
@@ -105,36 +107,36 @@ function createBoard() {
   }
 
   function hasVerticalPattern(token) {
-    if (board[0][0] === token && board[1][0] === token && board[2][0] === token) {
+    if (fields[0][0] === token && fields[1][0] === token && fields[2][0] === token) {
       return true;
-    } else if (board[0][1] === token && board[1][1] === token && board[2][1] === token) {
+    } else if (fields[0][1] === token && fields[1][1] === token && fields[2][1] === token) {
       return true;
-    } else if (board[0][2] === token && board[1][2] === token && board[2][2] === token) {
+    } else if (fields[0][2] === token && fields[1][2] === token && fields[2][2] === token) {
       return true;
     }
     return false;
   }
 
   function hasDiagonalPattern(token) {
-    if (board[0][0] === token && board[1][1] === token && board[2][2] === token) {
+    if (fields[0][0] === token && fields[1][1] === token && fields[2][2] === token) {
       return true;
-    } else if (board[0][2] === token && board[1][1] === token && board[2][0] === token) {
+    } else if (fields[0][2] === token && fields[1][1] === token && fields[2][0] === token) {
       return true;
     }
     return false;
   }
 
   function hasHorizontalPattern(token) {
-    if(board[0].toString() === `${token},${token},${token}`) {
+    if(fields[0].toString() === `${token},${token},${token}`) {
       return true;
-    } else if(board[1].toString() === `${token},${token},${token}`) {
+    } else if(fields[1].toString() === `${token},${token},${token}`) {
       return true;
-    } else if(board[2].toString() === `${token},${token},${token}`) {
+    } else if(fields[2].toString() === `${token},${token},${token}`) {
       return true;
     }
     return false;
   }
-  return { print, updateField, hasWinningPattern, hasEmptyField, isFieldEmpty, board };
+  return { print, updateField, hasWinningPattern, hasEmptyField, isFieldEmpty };
 }
 
 
