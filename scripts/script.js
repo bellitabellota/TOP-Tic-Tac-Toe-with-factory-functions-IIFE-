@@ -137,11 +137,9 @@ function createBoard() {
   }
 
   function hasVerticalPattern(token) {
-    if (fields[0][0] === token && fields[1][0] === token && fields[2][0] === token) {
-      return true;
-    } else if (fields[0][1] === token && fields[1][1] === token && fields[2][1] === token) {
-      return true;
-    } else if (fields[0][2] === token && fields[1][2] === token && fields[2][2] === token) {
+    if ((fields[0][0] === token && fields[1][0] === token && fields[2][0] === token) || 
+        (fields[0][1] === token && fields[1][1] === token && fields[2][1] === token) || 
+        (fields[0][2] === token && fields[1][2] === token && fields[2][2] === token)) {
       return true;
     }
     return false;
