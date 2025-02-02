@@ -3,7 +3,8 @@ ScreenController();
 function ScreenController() {
   const startButton = document.querySelector(".js-start-button");
   let game;
-  let domBoard = document.querySelector(".js-board");
+  const domBoard = document.querySelector(".js-board");
+
 
   startButton.addEventListener("click", () => { 
     game = createGame();
@@ -49,10 +50,12 @@ function createGame() {
     fields = board.getFields();
     printDomBoard(fields);
 
-    let playerInformation = getPlayerInformation();
-    player1 = createPlayer(playerInformation[0], playerInformation[1]);
-    playerInformation = getPlayerInformation();
-    player2 = createPlayer(playerInformation[0], playerInformation[1]);
+    //let playerInformation = getPlayerInformation();
+    //player1 = createPlayer(playerInformation[0], playerInformation[1]);
+    //playerInformation = getPlayerInformation();
+    //player2 = createPlayer(playerInformation[0], playerInformation[1]);
+    player1 = createPlayer("player1", "X");
+    player2 = createPlayer("player2", "O");
     currentPlayer = player1;
   }
 
