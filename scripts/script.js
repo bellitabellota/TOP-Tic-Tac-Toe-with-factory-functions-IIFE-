@@ -1,6 +1,4 @@
-ScreenController();
-
-function ScreenController() {
+const ScreenController = (function() {
   const startButton = document.querySelector(".js-start-button");
   let game;
   let domBoard = document.querySelector(".js-board");
@@ -41,7 +39,7 @@ function ScreenController() {
       });
     })
   }
-}
+})();
 
 function createGame() {
   let board;
