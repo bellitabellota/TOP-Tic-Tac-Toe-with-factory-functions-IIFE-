@@ -1,7 +1,7 @@
 ScreenController();
 
 function ScreenController() {
-  const game = GameController();
+  const game = createGame();
   const board = game.board;
   let domBoard = document.querySelector(".js-board");
 
@@ -21,8 +21,8 @@ function ScreenController() {
   printDomBoard();
 }
 
-function GameController() {
-  const board = BoardController().board;
+function createGame() {
+  const board = createBoard().board;
   const player1 = createPlayer("player1", "X");
   const player2 = createPlayer("player2", "0");
   let currentPlayer = player1
@@ -75,7 +75,7 @@ function createPlayer(name, token) {0
   return { name, token };
 }
 
-function BoardController() {
+function createBoard() {
   let board = [[null, null, null],
                [null, null, null],
                [null, null, null]];
