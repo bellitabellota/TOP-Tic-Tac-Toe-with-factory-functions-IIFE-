@@ -19,10 +19,16 @@ function ScreenController() {
     domBoard.innerHTML = null;
     fields.forEach((row, row_index) => {
       row.forEach((field, column_index) => {
+        let token;
+        if (field === null ) {
+          token = " ";
+        } else {
+          token = field;
+        }
 
         fieldIndexes = [row_index, column_index]
         //console.log([row_index, column_index]);
-        domBoard.innerHTML += `<div class="cell js-cells" data-field=${fieldIndexes}> </div>`
+        domBoard.innerHTML += `<div class="cell js-cells" data-field=${fieldIndexes}>${token}</div>`
       })
     })
   }
