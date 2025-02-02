@@ -4,14 +4,14 @@ function ScreenController() {
   const startButton = document.querySelector(".js-start-button");
   let game;
   const domBoard = document.querySelector(".js-board");
+  const info = document.querySelector(".js-info");
 
 
   startButton.addEventListener("click", () => { 
     game = createGame();
     game.start(printDomBoard);
     addDomBoardEventListeners();
-    //printDomBoard();
-    //game.play();
+    info.innerHTML = `Player 1 can click a field of his/her choice to place the token.`;
   })
 
   function printDomBoard(fields) {
@@ -101,7 +101,7 @@ function createGame() {
     // }
   }
 
-  return { play, start }
+  return { start }
 }
 
 
