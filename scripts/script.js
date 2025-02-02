@@ -8,6 +8,7 @@ function ScreenController() {
 
 
   startButton.addEventListener("click", () => { 
+    //update button description
     game = createGame();
     game.start(printDomBoard);
     addDomBoardEventListeners();
@@ -15,20 +16,15 @@ function ScreenController() {
   })
 
   function printDomBoard(fields) {
-    //console.log(fields);
     domBoard.innerHTML = null;
     fields.forEach((row, row_index) => {
       row.forEach((field, column_index) => {
         let token;
-        if (field === null ) {
-          token = " ";
-        } else {
-          token = field;
-        }
+        field === null ? token = " " : token = field;
 
-        fieldIndexes = [row_index, column_index]
-        //console.log([row_index, column_index]);
-        domBoard.innerHTML += `<div class="cell js-cells" data-field=${fieldIndexes}>${token}</div>`
+        fieldIndexes = [row_index, column_index];
+
+        domBoard.innerHTML += `<div class="cell js-cells" data-field=${fieldIndexes}>${token}</div>`;
       })
     })
   }
@@ -38,11 +34,10 @@ function ScreenController() {
     cells.forEach((cell) => {
       cell.addEventListener("click", () => {
         let fieldIndexes = cell.dataset.field.split(",").map(Number);
-        console.log(fieldIndexes);
+
         game.finished = game.makeMove(fieldIndexes, info, printDomBoard);
-        if(!game.finished) {
-          addDomBoardEventListeners();
-        }
+
+        if(!game.finished) { addDomBoardEventListeners(); }
       });
     })
   }
@@ -70,8 +65,8 @@ function createGame() {
   }
 
   function getPlayerInformation() {
-    let playerName = prompt("Please enter the name of Player1:")
-    let playerToken = prompt(`${playerName}, please chose your token (usually X or O):`)
+    let playerName = prompt("Please enter the name of Player1:");
+    let playerToken = prompt(`${playerName}, please chose your token (usually X or O):`);
     return [ playerName, playerToken ];
   }
 
@@ -84,46 +79,32 @@ function createGame() {
   }
 
   function isValid(choice) {
-    if(board.isFieldEmpty(choice[0], choice[1])) {
-      return true;
-    } else {
-      return false;
-    }
+    return board.isFieldEmpty(choice[0], choice[1]);
   }
 
   function makeMove(choice, info, printDomBoard) {
     if (isValid(choice)) {
       placeToken(choice[0], choice[1]);
-        fields = board.getFields();
-        printDomBoard(fields);
-        board.print();
+      fields = board.getFields();
+      printDomBoard(fields);
+
       if(board.hasWinningPattern(currentPlayer)) {
-        info.innerHTML =`${currentPlayer.name} wins the game.` 
+        info.innerHTML =`${currentPlayer.name} wins the game.`;
         finished = true;       
       } else if (!board.hasEmptyField()) {
-        info.innerHTML ="No more empty fields. The game has finished with a tie."
+        info.innerHTML ="No more empty fields. The game has finished with a tie.";
         finished = true; 
       } else {
         updateCurrentPlayer();
-        info.innerHTML =`${currentPlayer.name}, please make your choice.`
+        info.innerHTML =`${currentPlayer.name}, please make your choice.`;
       } 
     } else {
-      info.innerHTML = `This field is already taken. Please chose another field.`
+      info.innerHTML = `This field is already taken. Please chose another field.`;
     }
     return finished
   }
-
-  function play() {
-    board.print();
-    // while(gameFinished === false) {
-    //   makeMove();
-    // }
-  }
-
-  return { start, makeMove, finished }
+  return { start, makeMove, finished };
 }
-
-
 
 function createPlayer(name, token) {
   this.name = name;
@@ -151,11 +132,7 @@ function createBoard() {
   }
 
   const hasEmptyField = () => { 
-    if(fields.flat().includes(null)) {
-      return true;
-    } else {
-      return false;
-    }
+    return fields.flat().includes(null);
   }
 
   const hasWinningPattern = (player) => {
