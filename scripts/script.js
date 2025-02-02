@@ -1,9 +1,12 @@
 ScreenController();
 
 function ScreenController() {
+  const startButton = document.querySelector(".js-start-button");
   const game = createGame();
   //const board = game.board;
   let domBoard = document.querySelector(".js-board");
+
+  startButton.addEventListener("click", () => { game.play();})
 
   function printDomBoard() {
     console.log(board);
@@ -61,10 +64,12 @@ function createGame() {
 
   function play() {
     board.print();
-    while(gameFinished === false) {
-      makeMove();
-    }
+    // while(gameFinished === false) {
+    //   makeMove();
+    // }
   }
+
+  return { play }
 }
 
 
