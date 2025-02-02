@@ -39,8 +39,10 @@ function ScreenController() {
       cell.addEventListener("click", () => {
         let fieldIndexes = cell.dataset.field.split(",").map(Number);
         console.log(fieldIndexes);
-        game.makeMove(fieldIndexes, info, printDomBoard);
-        addDomBoardEventListeners();
+        game.finished = game.makeMove(fieldIndexes, info, printDomBoard);
+        if(!game.finished) {
+          addDomBoardEventListeners();
+        }
       });
     })
   }
@@ -51,7 +53,7 @@ function createGame() {
   let player1;
   let player2;
   let currentPlayer;
-  let gameFinished = false;
+  let finished = false;
 
   function start (printDomBoard) {
     board = createBoard();
@@ -92,23 +94,23 @@ function createGame() {
   function makeMove(choice, info, printDomBoard) {
     if (isValid(choice)) {
       placeToken(choice[0], choice[1]);
-
+        fields = board.getFields();
+        printDomBoard(fields);
+        board.print();
       if(board.hasWinningPattern(currentPlayer)) {
-        info.innerHTML =`${currentPlayer.name} wins the game.`
-        //remove EventListeners when game is  finished, check if gameFinished variable is required.
+        info.innerHTML =`${currentPlayer.name} wins the game.` 
+        finished = true;       
       } else if (!board.hasEmptyField()) {
         info.innerHTML ="No more empty fields. The game has finished with a tie."
-        //remove EventListeners when game is  finished, check if gameFinished variable is required.
+        finished = true; 
       } else {
         updateCurrentPlayer();
         info.innerHTML =`${currentPlayer.name}, please make your choice.`
-        board.print();
-        fields = board.getFields();
-        printDomBoard(fields);
-      }
+      } 
     } else {
       info.innerHTML = `This field is already taken. Please chose another field.`
     }
+    return finished
   }
 
   function play() {
@@ -118,7 +120,7 @@ function createGame() {
     // }
   }
 
-  return { start, makeMove }
+  return { start, makeMove, finished }
 }
 
 
